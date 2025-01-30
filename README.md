@@ -47,14 +47,16 @@ To revert migrations
 
 ### `npm run migration:revert`
 
-###
+## File Structure
 
+```
 /src
-/schemas
-user.schema.ts <-- ✅ JSON Schema for validation
-/routes
-users.ts <-- ✅ Uses schema for validation
-/services
-user.service.ts <-- ✅ Business logic
-/entities
-user.entity.ts <-- ✅ TypeORM model
+  /schemas
+    user.schema.ts <-- ✅ JSON Schema for validation
+  /routes
+    users.ts <-- ✅ Uses schema for validation
+  /services
+    user.service.ts <-- ✅ Business logic
+  /entities
+    user.entity.ts <-- ✅ TypeORM model
+```
