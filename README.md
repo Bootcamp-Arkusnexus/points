@@ -31,7 +31,9 @@ To start the database container
 
 ## Migrations
 
-To create migrations
+Migrations in TypeORM are used to version-control database schema changes, ensuring consistency across different environments. They allow you to create, modify, or remove database tables and columns in a structured way. To create a new migration, first, define your entity inside the entities directory. Once the entity is set up, you can generate the migration using:
+
+To create migrations, this command will create a new migration file based on the entity changes. If you need to manually create a migration file, use:
 
 ### `npm run migration:create --name=my-new-migration`
 
@@ -39,11 +41,11 @@ To generate migrations
 
 ### `npm run migration:generate --name=InitialMigration`
 
-To run migrations
+After generating the migration, run it to apply the changes to your database:
 
 ### `npm run migration:run`
 
-To revert migrations
+If needed, you can revert the last applied migration using:
 
 ### `npm run migration:revert`
 
