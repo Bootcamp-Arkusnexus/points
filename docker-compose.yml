@@ -1,7 +1,7 @@
 services:
-  postgres:
+  db:
     image: postgres:16-alpine
-    container_name: points-postgresql
+    container_name: points_postgresql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -11,10 +11,22 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U admin']
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
       interval: 10s
       timeout: 5s
       retries: 5
-
+  app:
+    build: .
+    container_name: points_app
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=points
+    ports:
+      - "80:80"
 volumes:
   postgres_data:
