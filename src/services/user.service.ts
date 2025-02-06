@@ -32,12 +32,12 @@ export class UserService {
     return user;
   }
 
-  async updateUser(id: number, userData: { name?: string; email?: string }) {
+  async updateUser(id: number, userData: { name?: string; email?: string; isActive?: boolean }) {
     const userRepository = this.db.getRepository(User);
-
+  
     const user = await this.getUserByID(id);
     if (!user) throw new CustomError('User not found.', 404);
-
+  
     if (userData.email) {
       const existingUser = await userRepository.findOne({
         where: { email: userData.email },
@@ -46,11 +46,12 @@ export class UserService {
         throw new CustomError('Email is already in use.');
       }
     }
+  
+    await userRepository.update(id, userData);
 
-    const updatedUser = userRepository.update(id, userData);
-
-    return updatedUser;
+    return await userRepository.findOne({ where: { id } });
   }
+  
   /**
    *
    * Recive a email and return true if the user exists and false if not
@@ -72,4 +73,10 @@ export class UserService {
     if (user) return true;
     return false;
   }
+
+  async deleteUser(id: number) {
+    const userRepository = this.db.getRepository(User);
+    await userRepository.delete(id);
+  }
+  
 }
