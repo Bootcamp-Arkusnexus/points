@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { User } from './../entities/user.entity';
-import { CustomError } from '../plugins/handleError';
+import { CustomError } from '../utils/handleError';
 
 export class UserService {
   private db: DataSource;

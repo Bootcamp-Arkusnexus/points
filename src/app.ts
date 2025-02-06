@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
 import { FastifyPluginAsync, FastifyServerOptions } from 'fastify';
-import { handleError } from './plugins/handleError';
+import { handleError } from './utils/handleError';
 
 export interface AppOptions
   extends FastifyServerOptions,
