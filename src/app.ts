@@ -1,6 +1,7 @@
 import { join } from 'node:path';
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
 import { FastifyPluginAsync, FastifyServerOptions } from 'fastify';
+import { handleError } from './plugins/handleError';
 
 export interface AppOptions
   extends FastifyServerOptions,
@@ -10,7 +11,7 @@ const options: AppOptions = {};
 
 const app: FastifyPluginAsync<AppOptions> = async (
   fastify,
-  opts,
+  opts
 ): Promise<void> => {
   // Place here your custom code!
 
@@ -30,6 +31,8 @@ const app: FastifyPluginAsync<AppOptions> = async (
     dir: join(__dirname, 'routes'),
     options: opts,
   });
+
+  void fastify.setErrorHandler(handleError);
 };
 
 export default app;
