@@ -9,7 +9,6 @@ const COGNITO_JWKS_URL = `https://cognito-idp.${COGNITO_REGION}.amazonaws.com/${
 
 let cachedKeys: any = null;
 
-// Obtén las claves públicas de Cognito para verificar el JWT
 const getCognitoPublicKeys = async () => {
   if (!cachedKeys) {
     const { data } = await axios.get(COGNITO_JWKS_URL);
@@ -21,7 +20,6 @@ const getCognitoPublicKeys = async () => {
   return cachedKeys;
 };
 
-// Verifica el token de Cognito y comprueba si el usuario es admin
 const verifyCognitoToken = async (token: string) => {
   const keys = await getCognitoPublicKeys();
   const decoded = jwt.decode(token, { complete: true });
@@ -36,7 +34,6 @@ const verifyCognitoToken = async (token: string) => {
         return reject(err);
       }
 
-      // Aquí verificamos si el usuario es parte del grupo "admin"
       const claims = decodedToken as any;
       const groups = claims['cognito:groups'];
 
@@ -49,11 +46,10 @@ const verifyCognitoToken = async (token: string) => {
   });
 };
 
-// Plugin de Fastify para proteger rutas
 export async function cognitoAuthPlugin(fastify: FastifyInstance) {
   fastify.decorate('authenticate', async function (request: any, reply: any) {
     try {
-      const token = request.headers.authorization?.split(' ')[1]; // Extrae el token del header Authorization
+      const token = request.headers.authorization?.split(' ')[1];
       if (!token) {
         return reply.status(401).send({ message: 'No token provided' });
       }

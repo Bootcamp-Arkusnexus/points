@@ -32,7 +32,7 @@ export class UserService {
     return user;
   }
 
-  async updateUser(id: number, userData: { name?: string; email?: string; isActive?: boolean }) {
+  async updateUser(id: number, userData: { name?: string; email?: string; isActive?: boolean;  role?: string }) {
     const userRepository = this.db.getRepository(User);
   
     const user = await this.getUserByID(id);
