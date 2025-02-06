@@ -62,7 +62,7 @@ export async function userRoutes(fastify: FastifyInstance) {
       }
   
       const userGroups = (request.user as any)['cognito:groups'];
-      const isAdmin = userGroups && userGroups.includes('admin');
+      const isAdmin = userGroups && userGroups.includes('Admin');
       
       if (isAdmin) {
         const user = await userService.getUserByID(id);
@@ -95,7 +95,7 @@ export async function userRoutes(fastify: FastifyInstance) {
         }
 
         const userGroups = request.user?.['cognito:groups'];
-        const isAdmin = userGroups && userGroups.includes('admin');
+        const isAdmin = userGroups && userGroups.includes('Admin');
 
         if (isAdmin) {
           const user = await userService.updateUser(id, userData);
@@ -120,7 +120,7 @@ export async function userRoutes(fastify: FastifyInstance) {
         const { role, force } = request.body as { role: string; force?: boolean };
 
         const userGroups = request.user?.['cognito:groups'];
-        const isAdmin = userGroups && userGroups.includes('admin');
+        const isAdmin = userGroups && userGroups.includes('Admin');
 
         if (!isAdmin) {
           return reply.status(403).send({ message: 'You are not authorized to change roles.' });
@@ -131,9 +131,9 @@ export async function userRoutes(fastify: FastifyInstance) {
           return reply.status(404).send({ message: 'User not found.' });
         }
 
-        if (user.role === 'admin' && role !== 'admin' && !force) {
+        if (user.role === 'Admin' && role !== 'Admin' && !force) {
           return reply.status(400).send({
-            message: 'You are trying to degrade an admin. Please confirm by setting force to true.',
+            message: 'You are trying to degrade an Admin. Please confirm by setting force to true.',
           });
         }
 
@@ -165,7 +165,7 @@ export async function userRoutes(fastify: FastifyInstance) {
         }
   
         const userGroups = request.user?.['cognito:groups'];
-        const isAdmin = userGroups && userGroups.includes('admin');
+        const isAdmin = userGroups && userGroups.includes('Admin');
   
         if (isAdmin) {
           const userExists = await userService.existsUserByID(userId);
