@@ -17,7 +17,7 @@ const events: FastifyPluginAsync = async (fastify, opts) => {
       const event = await eventService.getEventByID(id);
       return reply.status(200).send(event);
     } catch (error) {
-      return reply.status(404).send({ message: 'User does not exist' });
+      return reply.status(404).send({ message: 'Event does not exist' });
     }
   });
 
