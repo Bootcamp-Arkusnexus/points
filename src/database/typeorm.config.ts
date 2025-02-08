@@ -10,6 +10,7 @@ const AppDataSource = new DataSource({
   database: process.env.DB_NAME || 'points',
   entities: [join(__dirname, './../entities/*.entity.{js,ts}')],
   migrations: [join(__dirname, './migrations/*.{js,ts}')],
+  subscribers: [join(__dirname, './../subscribers/*.subscriber.{js,ts}')],
   synchronize: false, // Use migrations instead of auto-sync
   logging: true,
 });

@@ -1,5 +1,5 @@
-import { DataSource } from "typeorm";
-import { Event } from "../entities/events.entity";
+import { DataSource } from 'typeorm';
+import { Event } from '../entities/events.entity';
 
 export class EventService {
   private db: DataSource;
@@ -27,13 +27,13 @@ export class EventService {
       .getRepository(Event)
       .findOne({ where: { title: data.title } });
     if (existingEvent) {
-      throw new Error("Event already exists");
+      throw new Error('Event already exists');
     }
 
     const newEvent = this.db.getRepository(Event).create({
       ...data,
       title: data.title,
-      description: data.description, 
+      description: data.description,
       date: data.date,
       category: data.category,
       location: data.location,

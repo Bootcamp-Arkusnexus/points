@@ -1,46 +1,33 @@
-import { FastifySchema } from "fastify";
+import { FastifySchema } from 'fastify';
+import {
+  CreatePointsBody,
+  GetPointsParams,
+  PointsTypeBox,
+} from '../types/points.types';
+import { Type } from '@sinclair/typebox';
 
 export const getPointsSchema: FastifySchema = {
-  params: {
-    type: "object",
-    properties: {
-      idUser: { type: "string" },
-    },
-    required: ["idUser"],
-  },
+  params: GetPointsParams,
   response: {
     200: {
-      type: "number",
+      type: 'number',
     },
   },
 };
 
 export const getPointsHistorySchema: FastifySchema = {
-  params: {
-    type: "object",
-    properties: {
-      idUser: { type: "string" },
-    },
-    required: ["idUser"],
-  },
+  params: GetPointsParams,
   response: {
     200: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          id: { type: "number" },
-          userId: { type: "string" },
-          sourceType: { type: "string" },
-          sourceId: { type: "string" },
-          pointsEarned: { type: "number" },
-          timestamp: { type: "string" },
-        },
-      },
+      type: 'array',
+      items: PointsTypeBox,
     },
   },
 };
 
-export type GetPointsParams = {
-  idUser: string;
+export const postPointsSchema: FastifySchema = {
+  body: CreatePointsBody,
+  response: {
+    201: Type.Omit(PointsTypeBox, ['user']),
+  },
 };
