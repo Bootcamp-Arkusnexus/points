@@ -9,51 +9,50 @@ import {
 import { User } from "./user.entity";
 import { EventCategory } from "./eventCategory.entity";
 
-// Entidad de eventos
 @Entity()
 export class Event {
-  @PrimaryGeneratedColumn() // ID autoincremental
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 255 }) // Título del evento
+  @Column({ length: 255 })
   title: string;
 
-  @Column({ type: "text", nullable: true }) // Descripción opcional del evento
+  @Column({ type: "text", nullable: true })
   description?: string;
 
-  @Column() // Fecha y hora del evento
+  @Column()
   date: Date;
 
   @ManyToOne(() => EventCategory, (category) => category.events, {
     nullable: false,
     onDelete: "RESTRICT",
-  }) // Relación con la categoría del evento
+  })
   category: EventCategory;
 
-  @Column({ type: "text", nullable: true }) // Ubicación del evento
+  @Column({ type: "text", nullable: true })
   location?: string;
 
-  @ManyToOne(() => User, (user) => user.id, { onDelete: "SET NULL" }) // Creador del evento, puede ser nulo si el usuario es eliminado
+  @ManyToOne(() => User, (user) => user.id, { onDelete: "SET NULL" })
   createdBy?: User;
 
-  @Column({ default: 0 }) // Puntos que otorga el evento
+  @Column({ default: 0 })
   points: number;
 
-  @Column({ default: 0 }) // Capacidad máxima del evento
+  @Column({ default: 0 })
   capacity: number;
 
-  @Column({ default: 0 }) // Cantidad de personas registradas
+  @Column({ default: 0 })
   registeredCount: number;
 
-  @Column({ length: 50, default: "Active" }) // Estado del evento
+  @Column({ length: 50, default: "Active" })
   status: string;
 
-  @Column({ type: "timestamp", nullable: true, default: null }) // Fecha de eliminación (soft delete)
+  @Column({ type: "timestamp", nullable: true, default: null })
   deletedAt?: Date;
 
-  @CreateDateColumn() // Fecha de creación automática
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn() // Fecha de actualización automática
+  @UpdateDateColumn()
   updatedAt: Date;
 }

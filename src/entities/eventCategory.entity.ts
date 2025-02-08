@@ -1,15 +1,13 @@
 import { PrimaryGeneratedColumn, Column, OneToMany, Entity } from "typeorm";
 import { Event } from "./events.entity";
-
-// Entidad de categorías de eventos
 @Entity()
 export class EventCategory {
-  @PrimaryGeneratedColumn() // ID autoincremental
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true, length: 50 }) // Nombre único de la categoría
+  @Column({ unique: true, length: 50 })
   name: string;
 
-  @OneToMany(() => Event, (event) => event.category) // Relación uno a muchos con eventos
+  @OneToMany(() => Event, (event) => event.category)
   events: Event[];
 }
