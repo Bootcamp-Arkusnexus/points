@@ -4,7 +4,7 @@ import { join } from 'path';
 const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST || 'localhost',
-  port: Number(process.env.DB_PORT) || 5432,
+  port: Number(process.env.DB_PORT) || 5433,
   username: process.env.DB_USERNAME || 'postgres',
   password: process.env.DB_PASSWORD || 'password',
   database: process.env.DB_NAME || 'points',
@@ -13,7 +13,7 @@ const AppDataSource = new DataSource({
   subscribers: [join(__dirname, './../subscribers/*.subscriber.{js,ts}')],
   synchronize: false, // Use migrations instead of auto-sync
   logging: true,
-  ssl: { rejectUnauthorized: false }
+  // ssl: { rejectUnauthorized: false }
 });
 
 export default AppDataSource;

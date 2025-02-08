@@ -38,7 +38,7 @@ export async function userRoutes(fastify: FastifyInstance) {
 
   // GET /users
   fastify.get('/users', {
-    preHandler: [fastify.authenticate],
+    // preHandler: [fastify.authenticate],
     async handler(request, reply) {
       const users = await userService.getAllUsers();
       reply.send(users);
@@ -47,7 +47,7 @@ export async function userRoutes(fastify: FastifyInstance) {
 
   // GET /users/:id: 
   fastify.get('/users/:id', {
-    preHandler: [fastify.authenticate],
+    // preHandler: [fastify.authenticate],
     async handler(request, reply) {
       const { id } = request.params as { id: number };
       
@@ -81,7 +81,7 @@ export async function userRoutes(fastify: FastifyInstance) {
     schema: {
       body: UpdateUserRequestSchema,
     },
-    preHandler: [fastify.authenticate],
+    // preHandler: [fastify.authenticate],
     async handler(request, reply) {
       try {
         const { id } = request.params as { id: number };
@@ -113,7 +113,7 @@ export async function userRoutes(fastify: FastifyInstance) {
     schema: {
       body: UpdateUserRoleRequestSchema,
     },
-    preHandler: [fastify.authenticate], 
+    // preHandler: [fastify.authenticate], 
     async handler(request, reply) {
       try {
         const { id } = request.params as { id: number };
@@ -147,7 +147,7 @@ export async function userRoutes(fastify: FastifyInstance) {
   });
 
   fastify.delete('/users/:id', {
-    preHandler: [fastify.authenticate],
+    // preHandler: [fastify.authenticate],
     async handler(request, reply) {
       try {
         const { id } = request.params as { id: string };
@@ -186,7 +186,7 @@ export async function userRoutes(fastify: FastifyInstance) {
   
 
   fastify.patch('/users/:id/status', {
-    preHandler: [fastify.authenticate],
+    // preHandler: [fastify.authenticate],
     async handler(request, reply) {
       try {
         const { id } = request.params as { id: string };

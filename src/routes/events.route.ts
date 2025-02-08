@@ -6,12 +6,12 @@ import { EventService } from '../services/event.service';
 const events: FastifyPluginAsync = async (fastify, opts) => {
   const eventService = new EventService(fastify.db);
 
-  fastify.get('/events', {}, async (request, reply) => {
+  fastify.get('/events', /*{},*/ async (request, reply) => {
     const events = await eventService.getAllEvents();
     return reply.send(events);
   });
 
-  fastify.get('/events/:id', {}, async (request, reply) => {
+  fastify.get('/events/:id', /*{},*/ async (request, reply) => {
     try {
       const { id } = request.params as { id: number };
       const event = await eventService.getEventByID(id);
@@ -21,7 +21,7 @@ const events: FastifyPluginAsync = async (fastify, opts) => {
     }
   });
 
-  fastify.post('/events', {}, async (request, reply) => {
+  fastify.post('/events', /*{},*/ async (request, reply) => {
     try {
       const event = await eventService.createEvent(
         request.body as Partial<Event>
@@ -52,7 +52,7 @@ const events: FastifyPluginAsync = async (fastify, opts) => {
     }
   );
 
-  fastify.delete('/events/:id', {}, async (request, reply) => {
+  fastify.delete('/events/:id', /*{},*/ async (request, reply) => {
     try {
       const { id } = request.params as { id: number };
       const event = await eventService.deleteEvents(id);
