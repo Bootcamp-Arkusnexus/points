@@ -4,12 +4,13 @@ import { join } from 'path';
 const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST || 'localhost',
-  port: Number(process.env.DB_PORT) || 5433,
+  port: Number(process.env.DB_PORT) || 5432,
   username: process.env.DB_USERNAME || 'postgres',
   password: process.env.DB_PASSWORD || 'password',
   database: process.env.DB_NAME || 'points',
   entities: [join(__dirname, './../entities/*.entity.{js,ts}')],
   migrations: [join(__dirname, './migrations/*.{js,ts}')],
+  subscribers: [join(__dirname, './../subscribers/*.subscriber.{js,ts}')],
   synchronize: false, // Use migrations instead of auto-sync
   logging: true,
   ssl: { rejectUnauthorized: false }

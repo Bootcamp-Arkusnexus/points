@@ -1,5 +1,5 @@
-import { DataSource } from "typeorm";
-import { Event } from "../entities/events.entity";
+import { DataSource } from 'typeorm';
+import { Event } from '../entities/events.entity';
 
 export class EventService {
   private db: DataSource;
@@ -31,7 +31,7 @@ export class EventService {
     
     // Check if event already exist
     if (existingEvent) {
-      throw new Error("Event already exists");
+      throw new Error('Event already exists');
     }
 
     // Create the event

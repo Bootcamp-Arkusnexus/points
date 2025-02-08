@@ -1,6 +1,8 @@
 import { join } from 'node:path';
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
 import { FastifyPluginAsync, FastifyServerOptions } from 'fastify';
+import cognitoAuthPlugin from './plugins/cognitoAuthPlugin';
+import { handleError } from './utils/handleError';
 
 export interface AppOptions
   extends FastifyServerOptions,
@@ -10,10 +12,10 @@ const options: AppOptions = {};
 
 const app: FastifyPluginAsync<AppOptions> = async (
   fastify,
-  opts,
+  opts
 ): Promise<void> => {
   // Place here your custom code!
-
+  // await fastify.register(cognitoAuthPlugin);
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
@@ -30,6 +32,8 @@ const app: FastifyPluginAsync<AppOptions> = async (
     dir: join(__dirname, 'routes'),
     options: opts,
   });
+
+  void fastify.setErrorHandler(handleError);
 };
 
 export default app;
