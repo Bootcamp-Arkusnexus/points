@@ -1,0 +1,5 @@
+{
+  "build_id": "#BUILD_ID#",
+  "build_date": "#BUILD_DATE#",
+  "build_branch": "#BUILD_BRANCH#"
+}

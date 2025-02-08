@@ -13,6 +13,7 @@ const AppDataSource = new DataSource({
   subscribers: [join(__dirname, './../subscribers/*.subscriber.{js,ts}')],
   synchronize: false, // Use migrations instead of auto-sync
   logging: true,
+  ssl: { rejectUnauthorized: false }
 });
 
 export default AppDataSource;
