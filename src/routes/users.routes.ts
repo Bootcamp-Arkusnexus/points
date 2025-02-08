@@ -56,7 +56,7 @@ export async function userRoutes(fastify: FastifyInstance) {
       if (parseInt(userIdFromToken, 10) === id) {
         const user = await userService.getUserByID(id);
         if (!user) {
-          return reply.status(404).send({ error: 'Usuario no encontrado' });
+          return reply.status(404).send({ error: 'User not found' });
         }
         return reply.send(user);
       }
@@ -67,7 +67,7 @@ export async function userRoutes(fastify: FastifyInstance) {
       if (isAdmin) {
         const user = await userService.getUserByID(id);
         if (!user) {
-          return reply.status(404).send({ error: 'Usuario no encontrado' });
+          return reply.status(404).send({ error: 'User not found' });
         }
         return reply.send(user);
       }
