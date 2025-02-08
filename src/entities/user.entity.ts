@@ -4,7 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-} from "typeorm";
+  OneToMany,
+} from 'typeorm';
+import { Points } from './points.entity';
 
 // Entidad de usuarios
 @Entity()
@@ -33,7 +35,7 @@ export class User {
   @Column({ default: 1 }) // Nivel del usuario
   level: number;
 
-  @Column({ length: 50, default: "User" }) // Rol del usuario
+  @Column({ length: 50, default: 'User' }) // Rol del usuario
   role: string;
 
   @CreateDateColumn() // Fecha de creación automática
@@ -41,4 +43,7 @@ export class User {
 
   @UpdateDateColumn() // Fecha de actualización automática
   updatedAt: Date;
+
+  @OneToMany(() => Points, (points) => points.user)
+  points: Points[];
 }
