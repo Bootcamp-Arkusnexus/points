@@ -8,10 +8,12 @@ export class EventService {
     this.db = db;
   }
 
+  //Get all events
   async getAllEvents() {
     return await this.db.getRepository(Event).find();
   }
 
+  //Get event by ID
   async getEventByID(id: number): Promise<Event | null> {
     const badge = await this.db.getRepository(Event).findOne({ where: { id } });
 
@@ -22,6 +24,7 @@ export class EventService {
     return badge;
   }
 
+  //Create events
   async createEvent(data: Partial<Event>): Promise<Event> {
     const existingEvent = await this.db
       .getRepository(Event)
@@ -29,21 +32,28 @@ export class EventService {
     if (existingEvent) {
       throw new Error("Event already exists");
     }
+    const newEvent = this.db.getRepository(Event).create({ ...data });
+    return await this.db.getRepository(Event).save(newEvent);
+  }
 
-    const newEvent = this.db.getRepository(Event).create({
-      ...data,
-      title: data.title,
-      description: data.description, 
-      date: data.date,
-      category: data.category,
-      location: data.location,
-      createdBy: data.createdBy,
-      points: data.points,
-      capacity: data.capacity,
-      registeredCount: data.registeredCount,
-      status: data.status,
-    });
+  //Update events
+  async updateEvent(id: number, data: Partial<Event>) {
+    const eventExist = await this.db
+      .getRepository(Event)
+      .findOne({ where: { id: data.id } });
+    console.log(eventExist);
 
-    return this.db.getRepository(Event).save(newEvent);
+    await this.db.getRepository(Event).update(id, { ...data });
+
+    return await this.db.getRepository(Event).findOne({ where: { id } });
+  }
+
+  //Delete events
+  async deleteEvents(id: number) {
+    const event = await this.db.getRepository(Event).findOne({ where: { id } });
+    if (!event) {
+      return null;
+    }
+    return await this.db.getRepository(Event).delete(id);
   }
 }
